@@ -26,7 +26,7 @@ Order robots from RobotSpareBin Industries Inc
         Click OK
         Create order    ${row}
         Preview order
-        Wait Until Keyword Succeeds    3x    1s    Order robot
+        Wait Until Keyword Succeeds    10x    2s    Order robot
         Create order PDF    ${row}
         Order another
         Log    ${row}
@@ -61,7 +61,7 @@ Preview order
     #${preview_image}=    Capture Element Screenshot    robot-preview-image
 
 Order robot
-    Wait Until Keyword Succeeds    3x    1s    Click Button    id:order
+    Wait Until Keyword Succeeds    10x    2s    Click Button    id:order
     Wait Until Page Contains    Receipt
 
 Order another

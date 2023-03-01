@@ -1,0 +1,1171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on darwin)" generated="20230301 15:24:16.197" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="/Users/samkahrom/Documents/Robocorp/Tilausrobotti/tasks.robot">
+<test id="s1-t1" name="Order robots from RobotSpareBin Industries Inc" line="20">
+<kw name="Open the website">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>https://robotsparebinindustries.com/#/robot-order</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20230301 15:24:17.935" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20230301 15:24:17.948" level="INFO">====== WebDriver manager ======</msg>
+<msg timestamp="20230301 15:24:20.620" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20230301 15:24:27.526" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20230301 15:24:27.532" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20230301 15:24:27.532" level="INFO">Opening url 'https://robotsparebinindustries.com/#/robot-order'</msg>
+<status status="PASS" starttime="20230301 15:24:17.934" endtime="20230301 15:24:29.276"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:17.934" endtime="20230301 15:24:29.276"/>
+</kw>
+<kw name="Maximize Browser Window" library="RPA.Browser.Selenium">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230301 15:24:29.277" endtime="20230301 15:24:29.757"/>
+</kw>
+<kw name="Get orders">
+<var>${orders}</var>
+<kw name="Download" library="RPA.HTTP">
+<arg>https://robotsparebinindustries.com/orders.csv</arg>
+<arg>overwrite=True</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20230301 15:24:29.759" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20230301 15:24:29.759" level="INFO">Creating Session using : alias=rpasession_alias.httpsrobotsparebinindustries.com, url=https://robotsparebinindustries.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230301 15:24:29.758" endtime="20230301 15:24:30.131"/>
+</kw>
+<kw name="Read table from CSV" library="RPA.Tables">
+<var>${orders}</var>
+<arg>orders.csv</arg>
+<doc>Read a CSV file as a table.</doc>
+<msg timestamp="20230301 15:24:30.136" level="INFO">${orders} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20230301 15:24:30.131" endtime="20230301 15:24:30.136"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Found colums: ${orders}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230301 15:24:30.137" level="INFO">Found colums: Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20230301 15:24:30.136" endtime="20230301 15:24:30.137"/>
+</kw>
+<return>
+<value>${orders}</value>
+<status status="PASS" starttime="20230301 15:24:30.137" endtime="20230301 15:24:30.137"/>
+</return>
+<msg timestamp="20230301 15:24:30.137" level="INFO">${orders} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20230301 15:24:29.758" endtime="20230301 15:24:30.137"/>
+</kw>
+<for flavor="IN">
+<var>${row}</var>
+<value>@{orders}</value>
+<iter>
+<var name="${row}">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</var>
+<kw name="Click OK">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>OK</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:30.140" level="INFO">Clicking button 'OK'.</msg>
+<status status="PASS" starttime="20230301 15:24:30.139" endtime="20230301 15:24:30.704"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:30.138" endtime="20230301 15:24:30.705"/>
+</kw>
+<kw name="Create order">
+<arg>${row}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${row}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20230301 15:24:30.705" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20230301 15:24:30.705" endtime="20230301 15:24:30.921"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${row}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20230301 15:24:30.922" level="INFO">Selecting '2' from radio button 'body'.</msg>
+<status status="PASS" starttime="20230301 15:24:30.921" endtime="20230301 15:24:31.006"/>
+</kw>
+<kw name="Press Keys" library="RPA.Browser.Selenium">
+<arg>none</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230301 15:24:31.007" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg timestamp="20230301 15:24:31.008" level="INFO">Pressing special key TAB to browser.</msg>
+<msg timestamp="20230301 15:24:31.008" level="INFO">Releasing special key TAB.</msg>
+<status status="PASS" starttime="20230301 15:24:31.007" endtime="20230301 15:24:31.074"/>
+</kw>
+<kw name="Press Keys" library="RPA.Browser.Selenium">
+<arg>none</arg>
+<arg>${row}[Legs]</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230301 15:24:31.075" level="INFO">Sending key(s) ('3',) to page.</msg>
+<msg timestamp="20230301 15:24:31.075" level="INFO">Sending key 3</msg>
+<status status="PASS" starttime="20230301 15:24:31.074" endtime="20230301 15:24:31.164"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Show model info</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:31.164" level="INFO">Clicking button 'Show model info'.</msg>
+<status status="PASS" starttime="20230301 15:24:31.164" endtime="20230301 15:24:31.307"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>address</arg>
+<arg>${row}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:31.308" level="INFO">Typing text 'Address 123' into text field 'address'.</msg>
+<status status="PASS" starttime="20230301 15:24:31.307" endtime="20230301 15:24:31.433"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:30.705" endtime="20230301 15:24:31.434"/>
+</kw>
+<kw name="Preview order">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Preview</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:31.434" level="INFO">Clicking button 'Preview'.</msg>
+<status status="PASS" starttime="20230301 15:24:31.434" endtime="20230301 15:24:32.371"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:31.434" endtime="20230301 15:24:32.371"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Order robot</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Order robot">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Click Button</arg>
+<arg>id:order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:32.373" level="INFO">Clicking button 'id:order'.</msg>
+<status status="PASS" starttime="20230301 15:24:32.372" endtime="20230301 15:24:32.780"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:32.372" endtime="20230301 15:24:32.780"/>
+</kw>
+<kw name="Wait Until Page Contains" library="RPA.Browser.Selenium">
+<arg>Receipt</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230301 15:24:32.780" endtime="20230301 15:24:32.826"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:32.372" endtime="20230301 15:24:32.826"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:32.371" endtime="20230301 15:24:32.826"/>
+</kw>
+<kw name="Create order PDF">
+<arg>${row}</arg>
+<kw name="Capture Element Screenshot" library="RPA.Browser.Selenium">
+<arg>robot-preview-image</arg>
+<arg>${OUTPUTDIR}/images/Order ${row}[Order number].png</arg>
+<doc>Captures a screenshot from the element identified by ``locator`` and embeds it into log file.</doc>
+<msg timestamp="20230301 15:24:32.935" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="images/Order%201.png"&gt;&lt;img src="images/Order%201.png" width="400px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20230301 15:24:32.827" endtime="20230301 15:24:32.935"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="RPA.Browser.Selenium">
+<arg>receipt</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230301 15:24:32.936" endtime="20230301 15:24:33.035"/>
+</kw>
+<kw name="Get Element Attribute" library="RPA.Browser.Selenium">
+<var>${order_info}</var>
+<arg>receipt</arg>
+<arg>outerHTML</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230301 15:24:33.092" level="INFO">${order_info} = &lt;div id="receipt" class="alert alert-success" role="alert"&gt;&lt;h3&gt;Receipt&lt;/h3&gt;&lt;div&gt;2023-03-01T13:24:32.597Z&lt;/div&gt;&lt;p class="badge badge-success"&gt;RSB-ROBO-ORDER-REYQ8I6IR&lt;/p&gt;&lt;p&gt;Address 123&lt;/p&gt;&lt;div id="part...</msg>
+<status status="PASS" starttime="20230301 15:24:33.036" endtime="20230301 15:24:33.092"/>
+</kw>
+<kw name="Html To Pdf" library="RPA.PDF">
+<arg>${order_info}</arg>
+<arg>${OUTPUT_DIR}${/}pdf/Order ${row}[Order number].pdf</arg>
+<doc>Generate a PDF file from HTML content.</doc>
+<msg timestamp="20230301 15:24:33.093" level="INFO">Writing output to file /Users/samkahrom/Documents/Robocorp/Tilausrobotti/output/pdf/Order 1.pdf</msg>
+<msg timestamp="20230301 15:24:33.168" level="INFO">maxp pruned</msg>
+<msg timestamp="20230301 15:24:33.169" level="INFO">cmap pruned</msg>
+<msg timestamp="20230301 15:24:33.171" level="INFO">post pruned</msg>
+<msg timestamp="20230301 15:24:33.172" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230301 15:24:33.172" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230301 15:24:33.172" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230301 15:24:33.173" level="INFO">name pruned</msg>
+<msg timestamp="20230301 15:24:33.176" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.176" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230301 15:24:33.176" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230301 15:24:33.176" level="INFO">Closing glyph list over 'glyf': 57 glyphs before</msg>
+<msg timestamp="20230301 15:24:33.176" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0021', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni003A', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0048', 'uni0049', 'uni004C', 'uni004F', 'uni0051', 'uni0052', 'uni0053', 'uni0054', 'uni0057', 'uni0059', 'uni005A', 'uni0061', 'uni0062', 'uni0063', 'uni0064', 'uni0065', 'uni0066', 'uni0067', 'uni0068', 'uni0069', 'uni006B', 'uni006C', 'uni006D', 'uni006E', 'uni006F', 'uni0070', 'uni0072', 'uni0073', 'uni0074', 'uni0075', 'uni0076', 'uni0077', 'uni0079', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 161, 197, 280, 320, 381, 382, 395, 409, 456, 469, 493, 504, 575, 582, 594, 612, 645, 650, 660, 679, 715, 723, 752, 759, 775, 827, 837, 867, 884, 899, 932, 936, 950, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1329, 1345, 1346, 1361, 1404, 1407, 1681]</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">Closed glyph list over 'glyf': 57 glyphs after</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0021', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni003A', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0048', 'uni0049', 'uni004C', 'uni004F', 'uni0051', 'uni0052', 'uni0053', 'uni0054', 'uni0057', 'uni0059', 'uni005A', 'uni0061', 'uni0062', 'uni0063', 'uni0064', 'uni0065', 'uni0066', 'uni0067', 'uni0068', 'uni0069', 'uni006B', 'uni006C', 'uni006D', 'uni006E', 'uni006F', 'uni0070', 'uni0072', 'uni0073', 'uni0074', 'uni0075', 'uni0076', 'uni0077', 'uni0079', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 161, 197, 280, 320, 381, 382, 395, 409, 456, 469, 493, 504, 575, 582, 594, 612, 645, 650, 660, 679, 715, 723, 752, 759, 775, 827, 837, 867, 884, 899, 932, 936, 950, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1329, 1345, 1346, 1361, 1404, 1407, 1681]</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">Retaining 57 glyphs</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.177" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.178" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.178" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.179" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230301 15:24:33.180" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230301 15:24:33.180" level="INFO">prep subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.181" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.181" level="INFO">post subsetted</msg>
+<msg timestamp="20230301 15:24:33.181" level="INFO">gasp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.181" level="INFO">STAT subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.181" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.182" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230301 15:24:33.182" level="INFO">head pruned</msg>
+<msg timestamp="20230301 15:24:33.182" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230301 15:24:33.183" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">maxp pruned</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">cmap pruned</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">post pruned</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230301 15:24:33.205" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230301 15:24:33.206" level="INFO">name pruned</msg>
+<msg timestamp="20230301 15:24:33.208" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.208" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230301 15:24:33.208" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Closing glyph list over 'glyf': 19 glyphs before</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Closed glyph list over 'glyf': 19 glyphs after</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230301 15:24:33.209" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
+<msg timestamp="20230301 15:24:33.210" level="INFO">Retaining 19 glyphs</msg>
+<msg timestamp="20230301 15:24:33.210" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.210" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.210" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.210" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.211" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">prep subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">post subsetted</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">gasp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">STAT subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.212" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.213" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230301 15:24:33.213" level="INFO">head pruned</msg>
+<msg timestamp="20230301 15:24:33.213" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230301 15:24:33.213" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.226" level="INFO">maxp pruned</msg>
+<msg timestamp="20230301 15:24:33.226" level="INFO">cmap pruned</msg>
+<msg timestamp="20230301 15:24:33.226" level="INFO">post pruned</msg>
+<msg timestamp="20230301 15:24:33.226" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230301 15:24:33.227" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230301 15:24:33.227" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230301 15:24:33.227" level="INFO">name pruned</msg>
+<msg timestamp="20230301 15:24:33.229" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230301 15:24:33.232" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230301 15:24:33.233" level="INFO">Retaining 18 glyphs</msg>
+<msg timestamp="20230301 15:24:33.233" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.233" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.233" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.233" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.234" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230301 15:24:33.235" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230301 15:24:33.235" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.235" level="INFO">post subsetted</msg>
+<msg timestamp="20230301 15:24:33.235" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.236" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230301 15:24:33.236" level="INFO">head pruned</msg>
+<msg timestamp="20230301 15:24:33.236" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230301 15:24:33.237" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.250" level="INFO">maxp pruned</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">cmap pruned</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">post pruned</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230301 15:24:33.251" level="INFO">name pruned</msg>
+<msg timestamp="20230301 15:24:33.253" level="INFO">glyf pruned</msg>
+<msg timestamp="20230301 15:24:33.255" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230301 15:24:33.256" level="INFO">Retaining 18 glyphs</msg>
+<msg timestamp="20230301 15:24:33.257" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.257" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.257" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.257" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.258" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230301 15:24:33.259" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230301 15:24:33.259" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.259" level="INFO">post subsetted</msg>
+<msg timestamp="20230301 15:24:33.259" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230301 15:24:33.260" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230301 15:24:33.260" level="INFO">head pruned</msg>
+<msg timestamp="20230301 15:24:33.260" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230301 15:24:33.261" level="INFO">glyf pruned</msg>
+<status status="PASS" starttime="20230301 15:24:33.092" endtime="20230301 15:24:33.270"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${robotPNG}</var>
+<arg>${OUTPUT_DIR}${/}pdf/Order ${row}[Order number].pdf</arg>
+<arg>${OUTPUTDIR}/images/Order ${row}[Order number].png</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230301 15:24:33.271" level="INFO">${robotPNG} = ['/Users/samkahrom/Documents/Robocorp/Tilausrobotti/output/pdf/Order 1.pdf', '/Users/samkahrom/Documents/Robocorp/Tilausrobotti/output/images/Order 1.png']</msg>
+<status status="PASS" starttime="20230301 15:24:33.270" endtime="20230301 15:24:33.271"/>
+</kw>
+<kw name="Add Files To Pdf" library="RPA.PDF">
+<arg>${robotPNG}</arg>
+<arg>${OUTPUT_DIR}${/}pdf/Order ${row}[Order number].pdf</arg>
+<doc>Add images and/or pdfs to new PDF document</doc>
+<msg timestamp="20230301 15:24:33.272" level="INFO">File /Users/samkahrom/Documents/Robocorp/Tilausrobotti/output/pdf/Order 1.pdf type: None</msg>
+<msg timestamp="20230301 15:24:33.275" level="WARN">Object 7 0 found</msg>
+<msg timestamp="20230301 15:24:33.276" level="WARN">Overwriting cache for 0 7</msg>
+<msg timestamp="20230301 15:24:33.278" level="WARN">Object 14 0 found</msg>
+<msg timestamp="20230301 15:24:33.278" level="WARN">Overwriting cache for 0 14</msg>
+<msg timestamp="20230301 15:24:33.280" level="WARN">Object 21 0 found</msg>
+<msg timestamp="20230301 15:24:33.281" level="WARN">Overwriting cache for 0 21</msg>
+<msg timestamp="20230301 15:24:33.282" level="WARN">Object 28 0 found</msg>
+<msg timestamp="20230301 15:24:33.283" level="WARN">Overwriting cache for 0 28</msg>
+<msg timestamp="20230301 15:24:33.284" level="INFO">File /Users/samkahrom/Documents/Robocorp/Tilausrobotti/output/images/Order 1.png type: png</msg>
+<msg timestamp="20230301 15:24:33.284" level="INFO">Image parameters: {}</msg>
+<status status="PASS" starttime="20230301 15:24:33.271" endtime="20230301 15:24:33.365"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:32.826" endtime="20230301 15:24:33.365"/>
+</kw>
+<kw name="Order another">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:33.366" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20230301 15:24:33.366" endtime="20230301 15:24:34.261"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:33.366" endtime="20230301 15:24:34.261"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${row}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230301 15:24:34.262" level="INFO">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</msg>
+<status status="PASS" starttime="20230301 15:24:34.262" endtime="20230301 15:24:34.262"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:30.138" endtime="20230301 15:24:34.262"/>
+</iter>
+<iter>
+<var name="${row}">{'Order number': '2', 'Head': '4', 'Body': '1', 'Legs': '5', 'Address': 'Address 456'}</var>
+<kw name="Click OK">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>OK</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:34.263" level="INFO">Clicking button 'OK'.</msg>
+<status status="PASS" starttime="20230301 15:24:34.263" endtime="20230301 15:24:34.558"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:34.262" endtime="20230301 15:24:34.559"/>
+</kw>
+<kw name="Create order">
+<arg>${row}</arg>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${row}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20230301 15:24:34.559" level="INFO">Selecting options from selection list 'head' by value 4.</msg>
+<status status="PASS" starttime="20230301 15:24:34.559" endtime="20230301 15:24:34.699"/>
+</kw>
+<kw name="Select Radio Button" library="RPA.Browser.Selenium">
+<arg>body</arg>
+<arg>${row}[Body]</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20230301 15:24:34.700" level="INFO">Selecting '1' from radio button 'body'.</msg>
+<status status="PASS" starttime="20230301 15:24:34.700" endtime="20230301 15:24:34.799"/>
+</kw>
+<kw name="Press Keys" library="RPA.Browser.Selenium">
+<arg>none</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230301 15:24:34.799" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg timestamp="20230301 15:24:34.800" level="INFO">Pressing special key TAB to browser.</msg>
+<msg timestamp="20230301 15:24:34.800" level="INFO">Releasing special key TAB.</msg>
+<status status="PASS" starttime="20230301 15:24:34.799" endtime="20230301 15:24:34.815"/>
+</kw>
+<kw name="Press Keys" library="RPA.Browser.Selenium">
+<arg>none</arg>
+<arg>${row}[Legs]</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230301 15:24:34.816" level="INFO">Sending key(s) ('5',) to page.</msg>
+<msg timestamp="20230301 15:24:34.816" level="INFO">Sending key 5</msg>
+<status status="PASS" starttime="20230301 15:24:34.815" endtime="20230301 15:24:34.838"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Show model info</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:34.838" level="INFO">Clicking button 'Show model info'.</msg>
+<status status="PASS" starttime="20230301 15:24:34.838" endtime="20230301 15:24:34.905"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>address</arg>
+<arg>${row}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:34.906" level="INFO">Typing text 'Address 456' into text field 'address'.</msg>
+<status status="PASS" starttime="20230301 15:24:34.905" endtime="20230301 15:24:35.166"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:34.559" endtime="20230301 15:24:35.166"/>
+</kw>
+<kw name="Preview order">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Preview</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:35.167" level="INFO">Clicking button 'Preview'.</msg>
+<status status="PASS" starttime="20230301 15:24:35.167" endtime="20230301 15:24:35.241"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:35.166" endtime="20230301 15:24:35.241"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Order robot</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Order robot">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Click Button</arg>
+<arg>id:order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:35.242" level="INFO">Clicking button 'id:order'.</msg>
+<status status="PASS" starttime="20230301 15:24:35.242" endtime="20230301 15:24:35.374"/>
+</kw>
+<status status="PASS" starttime="20230301 15:24:35.242" endtime="20230301 15:24:35.374"/>
+</kw>
+<kw name="Wait Until Page Contains" library="RPA.Browser.Selenium">
+<arg>Receipt</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<msg timestamp="20230301 15:24:38.191" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:38.192" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:35.374" endtime="20230301 15:24:38.195"/>
+</kw>
+<status status="FAIL" starttime="20230301 15:24:35.241" endtime="20230301 15:24:38.196"/>
+</kw>
+<kw name="Order robot">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Click Button</arg>
+<arg>id:order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:39.200" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:39.202" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:39.203" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:39.200" endtime="20230301 15:24:39.205"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:40.211" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:40.215" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:40.216" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:40.208" endtime="20230301 15:24:40.217"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:41.220" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:41.224" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:41.225" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:41.219" endtime="20230301 15:24:41.226"/>
+</kw>
+<msg timestamp="20230301 15:24:41.226" level="FAIL">Keyword 'Click Button' failed after retrying 3 times. The last error was: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+    [ Message content over the limit has been removed. ]
+...hromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15</msg>
+<status status="FAIL" starttime="20230301 15:24:39.199" endtime="20230301 15:24:41.231"/>
+</kw>
+<kw name="Wait Until Page Contains" library="RPA.Browser.Selenium">
+<arg>Receipt</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="NOT RUN" starttime="20230301 15:24:41.232" endtime="20230301 15:24:41.232"/>
+</kw>
+<status status="FAIL" starttime="20230301 15:24:39.199" endtime="20230301 15:24:41.232"/>
+</kw>
+<kw name="Order robot">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>3x</arg>
+<arg>1s</arg>
+<arg>Click Button</arg>
+<arg>id:order</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:42.235" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:42.237" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:42.238" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:42.235" endtime="20230301 15:24:42.238"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:43.239" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:43.241" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:43.242" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:43.239" endtime="20230301 15:24:43.242"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id:order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230301 15:24:44.246" level="INFO">Clicking button 'id:order'.</msg>
+<msg timestamp="20230301 15:24:44.253" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:44.254" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<status status="FAIL" starttime="20230301 15:24:44.244" endtime="20230301 15:24:44.255"/>
+</kw>
+<msg timestamp="20230301 15:24:44.255" level="FAIL">Keyword 'Click Button' failed after retrying 3 times. The last error was: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+    [ Message content over the limit has been removed. ]
+...hromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15</msg>
+<status status="FAIL" starttime="20230301 15:24:42.234" endtime="20230301 15:24:44.256"/>
+</kw>
+<kw name="Wait Until Page Contains" library="RPA.Browser.Selenium">
+<arg>Receipt</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="NOT RUN" starttime="20230301 15:24:44.257" endtime="20230301 15:24:44.257"/>
+</kw>
+<status status="FAIL" starttime="20230301 15:24:42.234" endtime="20230301 15:24:44.257"/>
+</kw>
+<msg timestamp="20230301 15:24:44.258" level="FAIL">Keyword 'Order robot' failed after retrying 3 times. The last error was: Keyword 'Click Button' failed after retrying 3 times. The last error was: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 6...
+    [ Message content over the limit has been removed. ]
+...hromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15</msg>
+<status status="FAIL" starttime="20230301 15:24:35.241" endtime="20230301 15:24:44.259"/>
+</kw>
+<kw name="Create order PDF">
+<arg>${row}</arg>
+<status status="NOT RUN" starttime="20230301 15:24:44.260" endtime="20230301 15:24:44.260"/>
+</kw>
+<kw name="Order another">
+<status status="NOT RUN" starttime="20230301 15:24:44.260" endtime="20230301 15:24:44.260"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${row}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230301 15:24:44.260" endtime="20230301 15:24:44.260"/>
+</kw>
+<status status="FAIL" starttime="20230301 15:24:34.262" endtime="20230301 15:24:44.260"/>
+</iter>
+<status status="FAIL" starttime="20230301 15:24:30.138" endtime="20230301 15:24:44.261"/>
+</for>
+<kw name="Zip receipts">
+<status status="NOT RUN" starttime="20230301 15:24:44.261" endtime="20230301 15:24:44.261"/>
+</kw>
+<kw name="Close Browser" library="RPA.Browser.Selenium" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230301 15:24:44.262" endtime="20230301 15:24:44.355"/>
+</kw>
+<status status="FAIL" starttime="20230301 15:24:17.933" endtime="20230301 15:24:44.356">Keyword 'Order robot' failed after retrying 3 times. The last error was: Keyword 'Click Button' failed after retrying 3 times. The last error was: NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+    [ Message content over the limit has been removed. ]
+...hromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15</status>
+</test>
+<doc>Orders robots from RobotSpareBin Industries Inc.
+Saves the order HTML receipt as a PDF file.
+Saves the screenshot of the ordered robot.
+Embeds the screenshot of the robot to the PDF receipt.
+Creates ZIP archive of the receipts and the images.
+</doc>
+<status status="FAIL" starttime="20230301 15:24:16.199" endtime="20230301 15:24:44.357"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230301 15:24:33.275" level="WARN">Object 7 0 found</msg>
+<msg timestamp="20230301 15:24:33.276" level="WARN">Overwriting cache for 0 7</msg>
+<msg timestamp="20230301 15:24:33.278" level="WARN">Object 14 0 found</msg>
+<msg timestamp="20230301 15:24:33.278" level="WARN">Overwriting cache for 0 14</msg>
+<msg timestamp="20230301 15:24:33.280" level="WARN">Object 21 0 found</msg>
+<msg timestamp="20230301 15:24:33.281" level="WARN">Overwriting cache for 0 21</msg>
+<msg timestamp="20230301 15:24:33.282" level="WARN">Object 28 0 found</msg>
+<msg timestamp="20230301 15:24:33.283" level="WARN">Overwriting cache for 0 28</msg>
+<msg timestamp="20230301 15:24:38.191" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:39.202" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:40.215" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:41.224" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:42.237" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:43.241" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+<msg timestamp="20230301 15:24:44.253" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=110.0.5481.177)
+Stacktrace:
+0   chromedriver                        0x0000000104f0d138 chromedriver + 4923704
+1   chromedriver                        0x0000000104e859d3 chromedriver + 4368851
+2   chromedriver                        0x0000000104ace787 chromedriver + 472967
+3   chromedriver                        0x0000000104aa4c15 chromedriver + 302101
+4   chromedriver                        0x0000000104b414cf chromedriver + 943311
+5   chromedriver                        0x0000000104b562c6 chromedriver + 1028806
+6   chromedriver                        0x0000000104b3bd23 chromedriver + 920867
+7   chromedriver                        0x0000000104b02a4b chromedriver + 686667
+8   chromedriver                        0x0000000104b04044 chromedriver + 692292
+9   chromedriver                        0x0000000104ed88fe chromedriver + 4708606
+10  chromedriver                        0x0000000104edde22 chromedriver + 4730402
+11  chromedriver                        0x0000000104ee66bf chromedriver + 4765375
+12  chromedriver                        0x0000000104edee80 chromedriver + 4734592
+13  chromedriver                        0x0000000104eaf975 chromedriver + 4540789
+14  chromedriver                        0x0000000104f00e78 chromedriver + 4873848
+15  chromedriver                        0x0000000104f00ff5 chromedriver + 4874229
+16  chromedriver                        0x0000000104f156de chromedriver + 4957918
+17  libsystem_pthread.dylib             0x00007ff81a9794e1 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff81a974f6b thread_start + 15
+</msg>
+</errors>
+</robot>
